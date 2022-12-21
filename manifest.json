@@ -1,0 +1,31 @@
+{
+	"manifest_version": 2,
+	"name": "Filter Youtube Subscriptions",
+	"description": "Filter by removing videos that correspond to the filter (keywords/name/author...)",
+	"version": "1.0",
+	"permissions": [
+		"http://*/*",
+		"https://*/*"
+	],
+	"browser_action": {
+		"default_popup": "popup.html"
+	},
+	"icons": {
+	},
+	"background": {
+		"scripts": [
+			"script.js"
+		]
+	},
+	"content_scripts": [
+    {
+      "matches": ["http://www.youtube.com/*", "https://www.youtube.com/*"],
+      "css": ["style.css"],
+      "js": ["jquery.js", "author.js", "script.js"]
+    },
+    {
+      "matches": ["https://*/*", "http://*/*"],
+      "js": ["jquery.js", "add_lib.js"]
+    }
+  ]
+}
