@@ -15,31 +15,24 @@ const handle = (hide) => {
     });
 }
 
-let interval = null;
-const makeInterval = _ => {
-    handle(true);
-    interval = setInterval(() => {
-        handle(true);
-    }, 2000);
-}
-const removeInterval = _ => {
-    clearInterval(interval);
-    handle(false);
-    interval = null;
-}
-
-makeInterval();
-
 const yt_app_tag = "ytd-app";
 const button_class = "yt_filter_button";
 $(yt_app_tag).append(`<div class='${button_class}'><p>On</p></div>`);
 const button = $("." + button_class);
+
+let enabled = true;
+setInterval(() => {
+    window.location.href.includes("feed") ? button.show() : button.hide();
+    handle(enabled);
+}, 2000);
+handle(true);
+
 $(button).on("click", _ => {
-    if (interval) {
-        removeInterval();
+    if (enabled) {
+        enabled = false;
         $(button).addClass("disabled").children().text("Off");
     } else {
-        makeInterval();
+        enabled = true;
         $(button).removeClass("disabled").children().text("On");
     }
 })
