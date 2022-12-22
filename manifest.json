@@ -5,28 +5,26 @@
 	"version": "1.0",
 	"permissions": [
 		"http://*/*",
-		"https://*/*"
+		"https://*/*",
+		"storage"
 	],
 	"browser_action": {
-		"default_popup": "popup.html"
-	},
-	"icons": {
-	},
+		"default_popup": "popup/index.html"
+	}, 
 	"background": {
-		"scripts": [
-			"author.js",
-			"script.js"
-		]
+        "scripts": ["jquery.js", "popup/index.js"]
+    },
+	"icons": {
 	},
 	"content_scripts": [
     {
       "matches": ["http://www.youtube.com/*", "https://www.youtube.com/*"],
-      "css": ["style.css"],
-      "js": ["jquery.js", "author.js", "script.js"]
+      "js": ["jquery.js", "content_scripts/author.js", "content_scripts/script.js"],
+	  "css": ["content_scripts/button.css"]
     },
     {
       "matches": ["https://*/*", "http://*/*"],
-      "js": ["jquery.js", "add_lib.js"]
+      "js": ["jquery.js", "content_scripts/add_lib.js"]
     }
   ]
 }
